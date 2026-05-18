@@ -11,9 +11,16 @@ import RestaurantRouter from "./src/routers/restaurantRouter.js";
 import RiderRouter from "./src/routers/riderRouter.js";
 import { verifyRazorPayConnect } from "./src/config/razorpay.js";
 import PaymentRouter from "./src/routers/paymentRouter.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: process.env.REACT_APP_API || "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(morgan("dev"));
