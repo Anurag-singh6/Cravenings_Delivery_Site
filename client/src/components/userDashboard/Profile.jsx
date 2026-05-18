@@ -39,24 +39,28 @@ const Profile = () => {
   };
   return (
     <>
-      <div className="bg-(--color-primary)/10 rounded-lg shadow-md p-6 md:p-8 h-full">
-        <div className="flex justify-between border p-3 rounded-3xl items-center border-gray-300 bg-white">
-          <div className="flex gap-5 items-center">
-            <div className="relative">
-              <div className="border rounded-full w-36 h-36 overflow-hidden">
+      <div className="bg-(--color-primary)/10 rounded-lg shadow-md p-4 sm:p-6 md:p-8 h-full">
+        <div className="flex flex-col lg:flex-row justify-between gap-6 border p-4 rounded-3xl items-center border-gray-300 bg-white">
+          {/* Left Section */}
+          <div className="flex flex-col sm:flex-row gap-5 items-center w-full">
+            {/* Profile Image */}
+            <div className="relative flex-shrink-0">
+              <div className="border rounded-full w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 overflow-hidden">
                 <img
                   src={preview || user?.photo?.url || UserImage}
                   alt="profile-image"
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute bottom-2 left-[75%] border bg-white p-2 rounded-full group flex gap-3">
+
+              <div className="absolute bottom-2 right-1 border bg-white p-2 rounded-full group flex gap-3 shadow">
                 <label
                   htmlFor="imageUpload"
-                  className="text-(--color-primary) group-hover:text-(--color-secondary)"
+                  className="text-(--color-primary) cursor-pointer group-hover:text-(--color-secondary)"
                 >
                   <ImCamera />
                 </label>
+
                 <input
                   type="file"
                   name="imageUpload"
@@ -67,27 +71,34 @@ const Profile = () => {
                 />
               </div>
             </div>
-            <div>
-              <div className="text-3xl text-(--color-primary) font-bold">
+
+            {/* User Details */}
+            <div className="text-center sm:text-left break-words">
+              <div className="text-xl sm:text-2xl md:text-3xl text-(--color-primary) font-bold">
                 {user.fullname}
               </div>
-              <div className="text-gray-600 text-lg font-semibold">
+
+              <div className="text-gray-600 text-sm sm:text-base md:text-lg font-semibold break-all">
                 {user.email}
               </div>
-              <div className="text-gray-600 text-lg font-semibold">
+
+              <div className="text-gray-600 text-sm sm:text-base md:text-lg font-semibold">
                 {user.mobileno}
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full sm:w-auto">
             <button
-              className="px-4 py-2 rounded bg-(--color-secondary) text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-(--color-primary)"
+              className="px-4 py-2 rounded bg-(--color-secondary) text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-(--color-primary) w-full sm:w-auto"
               onClick={() => setEditModol(true)}
             >
               Edit
             </button>
+
             <button
-              className="px-4 py-2 rounded bg-(--color-secondary) text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-(--color-primary)"
+              className="px-4 py-2 rounded bg-(--color-secondary) text-white cursor-pointer transition-colors duration-300 ease-in-out hover:bg-(--color-primary) w-full sm:w-auto"
               onClick={() => setResetModel(true)}
             >
               Reset Password
@@ -95,6 +106,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
       {isEditModol && <Editmodal onclose={() => setEditModol(false)} />}
       {isResetModal && <Resetpassmodal onclose={() => setResetModel(false)} />}
     </>
