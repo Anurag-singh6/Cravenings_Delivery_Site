@@ -266,34 +266,13 @@ export const UserPlaceOrder = async (req, res, next) => {
 export const UserAllOrders = async (req, res, next) => {
   try {
     const currentUser = req.user;
-
-    // Check user exists
-    if (!currentUser) {
-      return res.status(401).json({
-        message: "Unauthorized user",
-      });
-    }
-
-    // Fetch all orders of current user
     const orders = await Order.find({ userId: currentUser._id })
       .populate("restaurantId")
       .populate("riderId")
       .sort({ createdAt: -1 });
-
-    // If no orders found
-    if (!orders || orders.length === 0) {
-      return res.status(404).json({
-        message: "No orders found",
-        data: [],
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "All orders fetched successfully",
-      totalOrders: orders.length,
-      data: orders,
-    });
+    res
+      .status(200)
+      .json({ message: "All orders fetched Successfully", data: orders });
   } catch (error) {
     next(error);
   }
